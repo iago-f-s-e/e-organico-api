@@ -1,5 +1,5 @@
 import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from '@nestjs/common';
-import { containerActions } from '@src/infra/container/helpers';
+import { containerActions } from '@src/infra/container';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 

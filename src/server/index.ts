@@ -3,17 +3,11 @@ import { Modules } from '@src/modules';
 import cors from 'cors';
 import helmet from 'helmet';
 import express from 'express';
-import { kafkaConnection, kafkaConnectionReplication } from '@src/infra/kafka/config';
 import { PORT } from './settings';
 import { ContainerInterceptor } from './interceptors';
 
 async function bootstrap(): Promise<any> { // eslint-disable-line 
   const app = await NestFactory.create(Modules);
-
-  app.connectMicroservice(kafkaConnection);
-  app.connectMicroservice(kafkaConnectionReplication);
-
-  await app.startAllMicroservices();
 
   app.useGlobalInterceptors(new ContainerInterceptor());
 
