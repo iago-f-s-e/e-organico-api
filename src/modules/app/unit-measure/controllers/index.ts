@@ -8,7 +8,7 @@ import { FindUnitMeasureUseCase } from '../use-cases';
 
 @Controller()
 export class UnitMeasureController implements IUnitMeasureController {
-  private cacheKey = keys.MARKETS;
+  private cacheKey = keys.UNIT_MEASURES;
 
   constructor(
     private readonly findUseCase: FindUnitMeasureUseCase,
