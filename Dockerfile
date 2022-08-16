@@ -2,6 +2,6 @@ FROM node:18-alpine
 
 RUN npm install -g @nestjs/cli
 
-USER node
+USER root
 
-WORKDIR /home/node/api
+WORKDIR /home/api
