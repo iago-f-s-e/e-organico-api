@@ -21,10 +21,10 @@ export class SignInService implements ISignInService {
 
     if (userOrError.isLeft()) return left(new UnauthorizedException());
 
-    const isProducer = !!userOrError.value.producer;
-    const isNotActive = userOrError.value.producer?.status !== 'ACTIVE';
+    // const isProducer = !!userOrError.value.producer;
+    // const isNotActive = userOrError.value.producer?.status !== 'ACTIVE';
 
-    if (isProducer && isNotActive) return left(new UnauthorizedException());
+    // if (isProducer && isNotActive) return left(new UnauthorizedException());
 
     const isMatch = await this.passService.isMatch(data.password, userOrError.value.password);
 
