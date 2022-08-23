@@ -12,7 +12,7 @@ export const minimalProducerProductToClient: MinimalToClient = producerProduct =
   id: producerProduct.id,
   image: defaultImage,
   name: producerProduct.product.name,
-  price: producerProduct.price.toString(),
+  price: producerProduct.price.toFixed(2),
   stock: producerProduct.stock.toString(),
   unitMeasure: {
     name: producerProduct.unitMeasure.name
@@ -26,5 +26,5 @@ export const producerProductToClient: ToClient = producerProduct => ({
     transactions: producerProduct.score.transactions
   },
   stock: producerProduct.stock.toString(),
-  harvestDate: new Intl.DateTimeFormat('pt-BR').format(new Date(producerProduct.harvestDate))
+  harvestDate: new Date(producerProduct.harvestDate).toISOString()
 });

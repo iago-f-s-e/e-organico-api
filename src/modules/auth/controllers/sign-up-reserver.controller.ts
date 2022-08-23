@@ -53,7 +53,7 @@ export class SignUpReserveUserDocumentController implements ISignUpReserveUserDo
   @Post('reserve-email')
   @HttpCode(HttpStatus.NO_CONTENT)
   public async reserveEmail(@Body() body: ReserveEmailDTO): Promise<void> {
-    const key = `@email:${body.email}`;
+    const key = `@email:${body.email.toLowerCase()}`;
 
     const cache = await this.cache.get<ReserveEmailDTO>(key);
 
