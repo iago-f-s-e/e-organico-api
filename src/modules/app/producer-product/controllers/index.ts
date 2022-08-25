@@ -64,7 +64,7 @@ export class ProducerProductController implements IProducerProductController {
 
   @Get()
   public async getOwnProduct(@Current() current: CurrentUser): GetProducerProduct {
-    const key = `producer:${current.id}@${this.cacheKey}`;
+    const key = `${this.cacheKey}${current.id}`;
 
     const cache = await this.getCache(key);
 

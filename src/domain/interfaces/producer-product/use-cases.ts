@@ -17,4 +17,5 @@ export interface IUpdateProducerProductUseCase {
 export interface IFindProducerProductUseCase {
   byId(id: string): FindResponse<IProducerProduct>;
   byProducerId(id: string): Promise<IProducerProduct[]>;
+  onlyProductIdByProducerId(id: string): Promise<string[]>;
 }

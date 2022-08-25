@@ -3,5 +3,8 @@ export const enum EntryPoints {
   PRODUCER = 'api/producer',
   TRANSACTION = 'api/transaction',
   PAYMENT = 'api/payment',
-  PRODUCER_PRODUCT = 'api/producer-product'
+  PRODUCER_PRODUCT = 'api/producer-product',
+
+  PRODUCT = 'api/product',
+  PRODUCT_WITHOUT_PRODUCER_PRODUCT = 'api/product/without-producer-product'
 }

@@ -48,6 +48,15 @@ export class ProducerProductRepository implements IProducerProductRepository {
     });
   }
 
+  public async findOnlyProductIdsByProducerId(producerId: string): Promise<string[]> {
+    return (
+      await this.producerProduct.find({
+        where: { producerId, isActive: true },
+        select: { productId: true }
+      })
+    ).map(res => res.productId);
+  }
+
   public async findByIdOrError(id: string): Promise<ProducerProduct> {
     const [producerProduct] = await this.producerProduct.find({
       where: {

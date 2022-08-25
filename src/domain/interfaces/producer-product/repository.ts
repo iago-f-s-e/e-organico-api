@@ -10,5 +10,6 @@ export interface IProducerProductRepository {
   update(id: string, data: UpdateProducerProductDTO): Promise<UpdateResult>;
   inactive(id: string): Promise<UpdateResult>;
   findByProducerId(producerId: string): Promise<IProducerProduct[]>;
+  findOnlyProductIdsByProducerId(producerId: string): Promise<string[]>;
   findByIdOrError(id: string): Promise<IProducerProduct>;
 }
