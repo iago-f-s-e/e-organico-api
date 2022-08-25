@@ -6,7 +6,7 @@ import { CreateResponse, FindResponse } from '@src/types/responses';
 import { IProducerProduct } from './entity';
 
 export interface ICreateProducerProductUseCase {
-  exec(data: CreateProducerProductDTO): CreateResponse<IProducerProduct>;
+  exec(data: CreateProducerProductDTO[], producerId: string): CreateResponse<IProducerProduct[]>;
 }
 
 export interface IUpdateProducerProductUseCase {

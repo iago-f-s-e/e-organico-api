@@ -14,7 +14,9 @@ export class ProducerProductRepository implements IProducerProductRepository {
     @InjectRepository(ProducerProduct) private readonly producerProduct: Repository<ProducerProduct>
   ) {}
 
-  public insert(data: CreateProducerProductDTO): Promise<ProducerProduct> {
+  public insert(
+    data: Array<CreateProducerProductDTO & { producerId: string }>
+  ): Promise<ProducerProduct[]> {
     return this.producerProduct.save(this.producerProduct.create(data));
   }
 

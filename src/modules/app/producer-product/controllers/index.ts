@@ -43,6 +43,12 @@ export class ProducerProductController implements IProducerProductController {
     await this.cache.del(key);
   }
 
+  private async delRelationalCache(producerId: string): Promise<void> {
+    const relational = [`${keys.PRODUCTS_WITHOUT_PRODUCER_PRODUCT}${producerId}`];
+
+    await this.cache.del(...relational);
+  }
+
   private getCache(key: string): Promise<MinimalProducerProductToClient[] | null> {
     return this.cache.get<MinimalProducerProductToClient[]>(key);
   }
@@ -52,12 +58,21 @@ export class ProducerProductController implements IProducerProductController {
   }
 
   @Post()
-  public async create(@Body() body: ProducerProductDTO): Promise<ProducerProduct> {
-    const producerProduct = new CreateProducerProductModel(body);
+  public async create(
+    @Body() body: ProducerProductDTO[],
+    @Current() current: CurrentUser
+  ): Promise<ProducerProduct[]> {
+    const producerProduct = body.map(
+      producerProduct => new CreateProducerProductModel(producerProduct).value
+    );
 
-    const createOrError = await this.createUseCase.exec(producerProduct.value);
+    const createOrError = await this.createUseCase.exec(producerProduct, current.id);
 
     if (createOrError.isLeft()) throw createOrError.value;
+
+    const key = `${this.cacheKey}${current.id}`;
+
+    await Promise.all([this.delCache(key), this.delRelationalCache(current.id)]);
 
     return createOrError.value;
   }

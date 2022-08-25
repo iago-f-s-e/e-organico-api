@@ -43,17 +43,17 @@ export class ProductController implements IProductController {
 
   @Get('without-producer-product')
   public async getWithoutProducerProduct(@Current() current: CurrentUser): GetProduct {
-    // const key = `${this.cacheKeyWithoutProducerProduct}${current.id}`;
+    const key = `${this.cacheKeyWithoutProducerProduct}${current.id}`;
 
-    // const cache = await this.getCache(key);
+    const cache = await this.getCache(key);
 
-    // if (cache) return cache;
+    if (cache) return cache;
 
     const products = (await this.findUseCase.withoutProducerProduct(current.id)).map(product =>
       productToClient(product)
     );
 
-    // this.setCache(products, key);
+    this.setCache(products, key);
 
     return products;
   }

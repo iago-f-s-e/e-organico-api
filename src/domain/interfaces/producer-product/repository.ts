@@ -6,7 +6,9 @@ import { UpdateResult } from 'typeorm';
 import { IProducerProduct } from './entity';
 
 export interface IProducerProductRepository {
-  insert(data: CreateProducerProductDTO): Promise<IProducerProduct>;
+  insert(
+    data: Array<CreateProducerProductDTO & { producerId: string }>
+  ): Promise<IProducerProduct[]>;
   update(id: string, data: UpdateProducerProductDTO): Promise<UpdateResult>;
   inactive(id: string): Promise<UpdateResult>;
   findByProducerId(producerId: string): Promise<IProducerProduct[]>;
