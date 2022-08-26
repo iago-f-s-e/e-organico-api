@@ -2,6 +2,7 @@ export * from './address';
 export * from './market';
 export * from './payment';
 export * from './producer-product';
+export * from './producer-market';
 export * from './product';
 export * from './transaction';
 export * from './unit-measure';

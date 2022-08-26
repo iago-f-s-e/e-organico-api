@@ -7,11 +7,11 @@ import { CommonModule } from './common';
 
 @Module({
   imports: [
-    InfraModule,
-    AppModule,
     AuthModule,
+    AppModule,
+    InfraModule,
     CommonModule,
-    RouterModule.register([appPrefix, authPrefix])
+    RouterModule.register([authPrefix, appPrefix])
   ]
 })
 export class Modules {}

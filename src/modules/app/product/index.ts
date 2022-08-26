@@ -25,6 +25,7 @@ export class ProductModule implements NestModule {
       .forRoutes(EntryPoints.PRODUCT_WITHOUT_PRODUCER_PRODUCT);
   }
 }
+
 export const productPrefix: RouteTree = {
   path: '/product',
   module: ProductModule
