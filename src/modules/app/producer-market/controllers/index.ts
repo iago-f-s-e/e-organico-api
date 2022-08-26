@@ -29,7 +29,8 @@ export class ProducerMarketController implements IProducerMarketController {
     @Current() current: CurrentUser
   ): Promise<ProducerMarket[]> {
     const producerProduct = body.map(
-      producerProduct => new CreateProducerMarketModel(producerProduct).value
+      producerProduct =>
+        new CreateProducerMarketModel(producerProduct, current.producerStatus).value
     );
 
     const createOrError = await this.createUseCase.exec(producerProduct, current.id);

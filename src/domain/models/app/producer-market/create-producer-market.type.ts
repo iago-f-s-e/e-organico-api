@@ -4,6 +4,7 @@ import { ValidateResponse } from '@src/types/responses';
 
 export type Validated = {
   marketId: ValidateUUID;
+  isActive: boolean;
 };
 
 export type Assert = {

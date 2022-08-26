@@ -24,7 +24,8 @@ export class TokenService {
 
       const payload: PayloadToken = {
         id: verified.id,
-        userType: verified.userType
+        userType: verified.userType,
+        producerStatus: verified.producerStatus
       };
 
       return right(payload);

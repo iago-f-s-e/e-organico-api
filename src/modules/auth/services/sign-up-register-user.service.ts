@@ -21,7 +21,11 @@ export class SignUpRegisterUserService implements ISignUpRegisterUserService {
     if (createOrError.isLeft()) return left(createOrError.value);
 
     const user = userToClient(createOrError.value);
-    const token = this.tokenService.generate({ id: user.id, userType: user.userType });
+    const token = this.tokenService.generate({
+      id: user.id,
+      userType: user.userType,
+      producerStatus: null
+    });
 
     return right({ token, user });
   }

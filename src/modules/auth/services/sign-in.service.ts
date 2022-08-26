@@ -31,7 +31,11 @@ export class SignInService implements ISignInService {
     if (!isMatch) return left(new UnauthorizedException());
 
     const user = userToClient(userOrError.value);
-    const token = this.tokenService.generate({ id: user.id, userType: user.userType });
+    const token = this.tokenService.generate({
+      id: user.id,
+      userType: user.userType,
+      producerStatus: userOrError.value.producer?.status
+    });
 
     return right({ token, user });
   }

@@ -1,6 +1,3 @@
-import { UserType } from '@src/types/entities';
+import { CurrentUser } from '@src/types/global';
 
-export type PayloadToken = {
-  id: string;
-  userType: UserType;
-};
+export type PayloadToken = CurrentUser;

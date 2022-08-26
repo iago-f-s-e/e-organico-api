@@ -24,7 +24,9 @@ export class CreateProducerModel {
     const certificationType = this.certificationTypeOrError.value;
     const makeDelivery = producer.makeDelivery;
     const producerProducts = products.map(product => new CreateProducerProductModel(product).value);
-    const producerMarkets = markets.map(market => new CreateProducerMarketModel(market).value);
+    const producerMarkets = markets.map(
+      market => new CreateProducerMarketModel(market, null).value
+    );
 
     this.toCreate = this.afterValidate({
       certificationType,

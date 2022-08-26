@@ -106,71 +106,41 @@ export class MarketRepository implements IMarketRepository {
   }
 
   public async findByIdOrError(id: string): Promise<Market> {
-    const [market] = await this.market.find({
-      where: {
-        id,
-        isActive: true,
-        producerMarkets: {
-          producer: {
-            status: 'ACTIVE',
-            user: {
-              isActive: true
-            }
-          }
-        },
-        workdays: {
-          isActive: true
-        }
-      },
-      select: {
-        id: true,
-        name: true,
-        address: {
-          id: true,
-          city: true,
-          complement: true,
-          district: true,
-          number: true,
-          state: true,
-          street: true,
-          zipCode: true
-        },
-        producerMarkets: {
-          isActive: true,
-          producer: {
-            id: true,
-            user: {
-              name: true,
-              score: {
-                rating: true,
-                transactions: true
-              }
-            }
-          }
-        },
-        score: {
-          transactions: true
-        },
-        workdays: {
-          id: true,
-          weekday: true,
-          closing: true,
-          opening: true
-        }
-      },
-      relations: {
-        address: true,
-        producerMarkets: {
-          producer: {
-            user: {
-              score: true
-            }
-          }
-        },
-        score: true,
-        workdays: true
-      }
-    });
+    const [market] = await this.market
+      .createQueryBuilder('market')
+      .select([
+        'market.id',
+        'market.name',
+        'address.id',
+        'address.city',
+        'address.complement',
+        'address.district',
+        'address.number',
+        'address.state',
+        'address.street',
+        'address.zipCode',
+        'producerMarkets.isActive',
+        'producer.id',
+        'user.name',
+        'userScore.rating',
+        'userScore.transactions',
+        'score.transactions',
+        'workdays.id',
+        'workdays.weekday',
+        'workdays.closing',
+        'workdays.opening'
+      ])
+      .innerJoin('market.address', 'address')
+      .innerJoin('market.score', 'score')
+      .innerJoin('market.workdays', 'workdays', 'workdays.isActive = true')
+      .leftJoin('market.producerMarkets', 'producerMarkets', 'producerMarkets.isActive = true')
+      .leftJoin('producerMarkets.producer', 'producer', 'producer.status = :status', {
+        status: 'ACTIVE'
+      })
+      .leftJoin('producer.user', 'user', 'user.isActive = true')
+      .leftJoin('user.score', 'userScore')
+      .where('market.isActive = true and market.id = :id', { id })
+      .getMany();
 
     if (!market) throw new NotFoundException('Market not found');
 
